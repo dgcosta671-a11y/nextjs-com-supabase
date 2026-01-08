@@ -1,13 +1,9 @@
-import { supabase } from "../lib/supabaseClient";
+mport { createClient } from "@supabase/supabase-js";
 
-export default async function Home() {
-  const { data, error } = await supabase.from("teste").select("*").limit(1);
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
 
-  return (
-    <main style={{ padding: 40 }}>
-      <h1>Home funcionando ✅</h1>
-      <p>Supabase conectado: {error ? "NÃO" : "SIM"}</p>
-      <pre>{error ? JSON.stringify(error, null, 2) : JSON.stringify(data, null, 2)}</pre>
-    </main>
-  );
-}
+export const supabase = createClient(
+  supabaseUrl,
+  supabaseAnonKey
+);
